@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GitHubFavourites } from "../interface/favourites";
+import { EmptyResponse } from "../interface/general";
 import utils from "../util";
 
 const getFavourites = async (user: string): Promise<GitHubFavourites[]> => {
@@ -10,18 +11,24 @@ const getFavourites = async (user: string): Promise<GitHubFavourites[]> => {
   return response.data;
 };
 
-const isFavourite = async (owner: string, repo: string) => {
-  const response = await axios.get<GitHubFavourites[]>(
+const isFavourite = async (
+  owner: string,
+  repo: string
+): Promise<EmptyResponse> => {
+  const response = await axios.get<EmptyResponse>(
     `${utils.baseUrl}/user/starred/${owner}/${repo}`,
     utils.header
   );
   return response.data;
 };
 
-const addToFavourites = async (owner: string, repo: string) => {
+const addToFavourites = async (
+  owner: string,
+  repo: string
+): Promise<EmptyResponse> => {
   console.log(owner, repo);
 
-  const response = await axios.put(
+  const response = await axios.put<EmptyResponse>(
     `${utils.baseUrl}/user/starred/${owner}/${repo}`,
     {},
     utils.header
@@ -29,10 +36,13 @@ const addToFavourites = async (owner: string, repo: string) => {
   return response.data;
 };
 
-const removeFromFavourites = async (owner: string, repo: string) => {
+const removeFromFavourites = async (
+  owner: string,
+  repo: string
+): Promise<EmptyResponse> => {
   console.log(owner, repo);
 
-  const response = await axios.delete(
+  const response = await axios.delete<EmptyResponse>(
     `${utils.baseUrl}/user/starred/${owner}/${repo}`,
     utils.header
   );
@@ -41,7 +51,7 @@ const removeFromFavourites = async (owner: string, repo: string) => {
 
 export default {
   getFavourites,
+  isFavourite,
   addToFavourites,
   removeFromFavourites,
-  isFavourite,
 };

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import HttpStatus from "http-status-codes";
-import { FavouritesOutput } from "../interface/favourites";
+import { FavouritesOutput, IsFavouriteOutput } from "../interface/favourites";
+import { EmptyResponse } from "../interface/general";
 import service from "../services/favourites";
 
 const getFavourites = async (
@@ -21,7 +22,7 @@ const addToFavourites = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<Response<EmptyResponse> | void> => {
   try {
     const owner = req.params.owner;
     const repo = req.params.repo;
@@ -36,7 +37,7 @@ const removeFromFavourites = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<Response<EmptyResponse> | void> => {
   try {
     const owner = req.params.owner;
     const repo = req.params.repo;
@@ -47,7 +48,11 @@ const removeFromFavourites = async (
   }
 };
 
-const isFavourite = async (req: Request, res: Response, next: NextFunction) => {
+const isFavourite = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<Response<IsFavouriteOutput> | void> => {
   try {
     const owner = req.params.owner;
     const repo = req.params.repo;
@@ -63,7 +68,7 @@ const isFavourite = async (req: Request, res: Response, next: NextFunction) => {
 
 export default {
   getFavourites,
+  isFavourite,
   addToFavourites,
   removeFromFavourites,
-  isFavourite,
 };

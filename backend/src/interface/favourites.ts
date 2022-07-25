@@ -124,3 +124,7 @@ export interface FavouritesOutput {
   updated_at: Date;
   owner: OwnerOutput;
 }
+
+export interface IsFavouriteOutput {
+  isFavourite: Boolean;
+}
