@@ -120,5 +120,7 @@ export interface FavouritesOutput {
   private: boolean;
   url: string;
   description: string;
+  created_at: Date;
+  updated_at: Date;
   owner: OwnerOutput;
 }
