@@ -1,8 +1,8 @@
 import { FavouritesOutput } from "../interface/favourites";
-import repo from "../repository/github";
+import repository from "../repository/github";
 
 const getFavourites = async (user: string): Promise<FavouritesOutput[]> => {
-  const favouritesList = await repo.getFavourites(user);
+  const favouritesList = await repository.getFavourites(user);
   const favouritesFiltered: FavouritesOutput[] = favouritesList.map((repo) => {
     const {
       id,
@@ -31,4 +31,18 @@ const getFavourites = async (user: string): Promise<FavouritesOutput[]> => {
   return favouritesFiltered;
 };
 
-export default { getFavourites };
+const addToFavourites = async (owner: string, repo: string) =>
+  repository.addToFavourites(owner, repo);
+
+const removeFromFavourites = async (owner: string, repo: string) =>
+  repository.removeFromFavourites(owner, repo);
+
+const isFavourite = async (owner: string, repo: string) =>
+  repository.isFavourite(owner, repo);
+
+export default {
+  getFavourites,
+  addToFavourites,
+  removeFromFavourites,
+  isFavourite,
+};

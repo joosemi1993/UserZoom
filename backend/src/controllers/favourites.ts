@@ -17,4 +17,53 @@ const getFavourites = async (
   }
 };
 
-export default { getFavourites };
+const addToFavourites = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const owner = req.params.owner;
+    const repo = req.params.repo;
+    await service.addToFavourites(owner, repo);
+    return res.status(HttpStatus.NO_CONTENT).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const removeFromFavourites = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const owner = req.params.owner;
+    const repo = req.params.repo;
+    await service.removeFromFavourites(owner, repo);
+    return res.status(HttpStatus.NO_CONTENT).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const isFavourite = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const owner = req.params.owner;
+    const repo = req.params.repo;
+    const isFavourite = await service.isFavourite(owner, repo);
+
+    if (!isFavourite) return res.status(200).send({ isFavourite: true });
+
+    return res.status(HttpStatus.NOT_MODIFIED).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export default {
+  getFavourites,
+  addToFavourites,
+  removeFromFavourites,
+  isFavourite,
+};
