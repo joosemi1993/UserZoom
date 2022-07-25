@@ -9,7 +9,7 @@ const PORT = 8080;
 app.use(express.json());
 app.use(cors());
 app.use(middlewares.setHeaders);
-app.use("/user-zoom", routes);
+app.use("/userzoom", routes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to UserZoom app!");

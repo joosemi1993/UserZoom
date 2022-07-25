@@ -1,14 +1,8 @@
-import constants from "./constants";
+require("dotenv").config();
 
-const generateOptions = (_path: string) => {
-  return {
-    hostname: constants.hostname,
-    path: _path,
-    headers: {
-      "User-Agent": constants.user_agent,
-    },
-    OAUth: process.env.GITHUB_ACCESS_TOKEN,
-  };
+const constants = {
+  baseUrl: "https://api.github.com",
+  authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
 };
 
-export default { generateOptions };
+export default constants;
