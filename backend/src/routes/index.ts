@@ -3,7 +3,7 @@ import favouritesController from "../controllers/favourites";
 
 const router = express.Router();
 
-router.get("/user/favourites/:user", favouritesController.getFavourites);
+router.get("/user/favourites", favouritesController.getFavourites);
 router.get("/user/is-favourite/:owner/:repo", favouritesController.isFavourite);
 router.put(
   "/user/favourites/:owner/:repo",

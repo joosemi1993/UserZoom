@@ -3,7 +3,7 @@ import { GitHubFavourites } from "../interface/favourites";
 import { EmptyResponse } from "../interface/general";
 import utils from "../util";
 
-const getFavourites = async (user: string): Promise<GitHubFavourites[]> => {
+const getFavourites = async (): Promise<GitHubFavourites[]> => {
   const response = await axios.get<GitHubFavourites[]>(
     `${utils.baseUrl}/user/starred`,
     utils.header
