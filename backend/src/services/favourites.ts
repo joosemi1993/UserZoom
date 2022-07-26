@@ -2,8 +2,8 @@ import { FavouritesOutput } from "../interface/favourites";
 import { EmptyResponse } from "../interface/general";
 import repository from "../repository/github";
 
-const getFavourites = async (user: string): Promise<FavouritesOutput[]> => {
-  const favouritesList = await repository.getFavourites(user);
+const getFavourites = async (): Promise<FavouritesOutput[]> => {
+  const favouritesList = await repository.getFavourites();
   const favouritesFiltered: FavouritesOutput[] = favouritesList.map((repo) => {
     const {
       id,

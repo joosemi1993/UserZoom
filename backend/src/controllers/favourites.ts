@@ -10,8 +10,7 @@ const getFavourites = async (
   next: NextFunction
 ): Promise<Response<FavouritesOutput> | void> => {
   try {
-    const user = req.params.user;
-    const favourites = await service.getFavourites(user);
+    const favourites = await service.getFavourites();
     return res.status(HttpStatus.OK).json(favourites);
   } catch (error) {
     return next(error);
