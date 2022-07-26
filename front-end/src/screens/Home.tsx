@@ -18,8 +18,7 @@ const Home = () => {
   }, [fetchFavouritesList])
 
   return (
-    <div className="App">
-      <Header />
+    <div className="home">
       <Container className='mt-5'>
         <Container className='favourites-list'>
           <h2>Favourites List</h2>
