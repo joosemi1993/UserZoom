@@ -1,6 +1,8 @@
+import Home from "./screens/Home";
+
 function App() {
   return (
-    <p>React App</p>
+    <Home />
   );
 }
 
