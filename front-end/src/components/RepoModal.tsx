@@ -32,16 +32,16 @@ const RepoModal = ({repo, showModal, setShowModal}: Props) => {
       </Modal.Header>
       <Modal.Body>
         <Row>
-          <Col>
+          <Col sm={12} md={6} lg={6}>
             <Row>
               { owner.avatar &&
-                <Col>
-                  <Image src={owner.avatar} rounded thumbnail/>
+                <Col sm={12} md={6} lg={6} className='mb-3'>
+                  <Image src={owner.avatar} fluid roundedCircle thumbnail/>
                 </Col>
               }
               <Col>
-                <h6>Author</h6>
-                <p>{owner.name}</p>
+                  <h6>Author</h6>
+                  <p>{owner.name}</p>
               </Col>
             </Row>
           </Col>

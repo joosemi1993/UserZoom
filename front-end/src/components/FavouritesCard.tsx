@@ -1,30 +1,27 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { FaRegStar, FaStar } from "react-icons/fa";
-import { removeFromFavourites } from '../api/favouritesApi';
+import { FaStar } from "react-icons/fa";
+import { RepositoryOutput } from '../interface/github';
 import RepoModal from './RepoModal';
 
+interface Props {
+  favRepo: RepositoryOutput;
+  handleOnClick: (id: number, owner: string, name: string) => {};
+}
 
-const FavouritesCard = ({favRepo}: any) => {
-  const [isFavourite, setIsFavourite] = useState(true);
+const FavouritesCard = ({favRepo, handleOnClick}: Props) => {
   const [showModal, setShowModal] = useState(false);
 
-  const { 
+  const {
+    id,
     name,
     description,
     owner,
    } = favRepo;
 
-  const fetchRemoveFavourite = useCallback(async () => {
-    await removeFromFavourites(owner.name, name);
-  }, [owner.name, name])
-
-  const handleFavourites = () => { 
-    fetchRemoveFavourite();
-    setIsFavourite(false);
-  }
+  const handleFavouritesButton = () => handleOnClick(id, owner.name, name)
 
   const handleShowModal = () => setShowModal(true);
    
@@ -36,8 +33,8 @@ const FavouritesCard = ({favRepo}: any) => {
             <Col>
               <Card.Title>{name}</Card.Title>
             </Col>
-            <Col style={{display:'flex', justifyContent:'right'}}>
-              { isFavourite ? <FaStar onClick={() => handleFavourites()} /> : <FaRegStar onClick={() => handleFavourites()} /> }
+            <Col style={{display:'flex', justifyContent:'right', alignItems: "start"}}>
+              <Button size='sm' variant="link" onClick={handleFavouritesButton}><FaStar /></Button>
             </Col>
           </Row>
           <Card.Text>{description}</Card.Text>
