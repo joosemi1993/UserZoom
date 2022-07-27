@@ -60,7 +60,10 @@ const isFavourite = async (
     if (!isFavourite) return res.status(200).send({ isFavourite: true });
 
     return res.status(HttpStatus.NOT_MODIFIED).send();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response.status === 404) {
+      return res.status(HttpStatus.NOT_MODIFIED).send();
+    }
     return next(error);
   }
 };
