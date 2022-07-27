@@ -27,7 +27,7 @@ export interface Permissions {
   pull: boolean;
 }
 
-export interface GitHubFavourites {
+export interface GitHubRepository {
   id: number;
   node_id: string;
   name: string;
@@ -114,7 +114,7 @@ export interface OwnerOutput {
   avatar: string;
 }
 
-export interface FavouritesOutput {
+export interface RepositoryOutput {
   id: number;
   name: string;
   private: boolean;

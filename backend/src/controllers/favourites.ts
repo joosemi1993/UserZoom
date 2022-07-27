@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import HttpStatus from "http-status-codes";
-import { FavouritesOutput, IsFavouriteOutput } from "../interface/favourites";
+import { RepositoryOutput, IsFavouriteOutput } from "../interface/favourites";
 import { EmptyResponse } from "../interface/general";
 import service from "../services/favourites";
 
@@ -8,7 +8,7 @@ const getFavourites = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<Response<FavouritesOutput> | void> => {
+): Promise<Response<RepositoryOutput> | void> => {
   try {
     const favourites = await service.getFavourites();
     return res.status(HttpStatus.OK).json(favourites);

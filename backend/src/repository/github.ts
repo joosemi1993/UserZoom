@@ -1,12 +1,16 @@
 import axios from "axios";
-import { GitHubFavourites } from "../interface/favourites";
+import { GitHubRepository as GitHubRepository } from "../interface/favourites";
 import { EmptyResponse } from "../interface/general";
 import utils from "../util";
 
-const getFavourites = async (): Promise<GitHubFavourites[]> => {
-  const response = await axios.get<GitHubFavourites[]>(
-    `${utils.baseUrl}/user/starred`,
-    utils.header
+const {
+  constants: { baseUrl, header },
+} = utils;
+
+const getFavourites = async (): Promise<GitHubRepository[]> => {
+  const response = await axios.get<GitHubRepository[]>(
+    `${baseUrl}/user/starred`,
+    header
   );
   return response.data;
 };
@@ -16,8 +20,8 @@ const isFavourite = async (
   repo: string
 ): Promise<EmptyResponse> => {
   const response = await axios.get<EmptyResponse>(
-    `${utils.baseUrl}/user/starred/${owner}/${repo}`,
-    utils.header
+    `${baseUrl}/user/starred/${owner}/${repo}`,
+    header
   );
   return response.data;
 };
@@ -29,9 +33,9 @@ const addToFavourites = async (
   console.log(owner, repo);
 
   const response = await axios.put<EmptyResponse>(
-    `${utils.baseUrl}/user/starred/${owner}/${repo}`,
+    `${baseUrl}/user/starred/${owner}/${repo}`,
     {},
-    utils.header
+    header
   );
   return response.data;
 };
@@ -43,8 +47,18 @@ const removeFromFavourites = async (
   console.log(owner, repo);
 
   const response = await axios.delete<EmptyResponse>(
-    `${utils.baseUrl}/user/starred/${owner}/${repo}`,
-    utils.header
+    `${baseUrl}/user/starred/${owner}/${repo}`,
+    header
+  );
+  return response.data;
+};
+
+const getOrganizationRepositories = async (
+  organization: string
+): Promise<GitHubRepository[]> => {
+  const response = await axios.get<GitHubRepository[]>(
+    `${baseUrl}/orgs/${organization}/repos`,
+    header
   );
   return response.data;
 };
@@ -54,4 +68,5 @@ export default {
   isFavourite,
   addToFavourites,
   removeFromFavourites,
+  getOrganizationRepositories,
 };
