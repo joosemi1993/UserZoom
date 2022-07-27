@@ -17,13 +17,15 @@ const Explore = () => {
           <OrganizationForm setOrganizationList={setOrganizationList} />
         </Row>
         <Row>
-          <ListGroup>
-          { organizationList.length > 0
-            ? React.Children.toArray(organizationList?.map((repo) => (
-              <OrganizationRepoList repository={repo} />
-            )))
-            : <></>}
-          </ListGroup>
+          <Container>
+            <ListGroup>
+            { organizationList.length > 0
+              ? React.Children.toArray(organizationList?.map((repo) => (
+                <OrganizationRepoList repository={repo} />
+              )))
+              : <></>}
+            </ListGroup>
+          </Container>
         </Row>
       </Container>
     </div>

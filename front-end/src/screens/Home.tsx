@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { getFavourites } from '../api/favouritesApi';
+import { getFavourites, removeFromFavourites } from '../api/favouritesApi';
 import FavouritesCard from '../components/FavouritesCard';
 import { RepositoryOutput } from '../interface/github';
 
@@ -12,10 +12,20 @@ const Home = () => {
     setFavouritesList(data);
   }, [])
 
-  useEffect(() => {
+  useEffect(() => {    
     fetchFavouritesList()
-    .catch(console.error);;
-  }, [fetchFavouritesList])
+    .catch(console.error);
+  }, [fetchFavouritesList]);
+
+  const fetchRemoveFavourite = useCallback(async (id: number, owner: string, name: string) => {
+    await removeFromFavourites(owner, name);
+    const test = favouritesList.filter((repo) => repo.id !== id)
+    setFavouritesList(test);
+  }, [favouritesList]);
+
+  const handleFavourites = async (id: number, owner: string, name: string) => { 
+    await fetchRemoveFavourite(id, owner, name);
+  };
 
   return (
     <div className="home">
@@ -24,7 +34,7 @@ const Home = () => {
           <h2>My Favourites List</h2>
           <Row className='mt-3'>
             { React.Children.toArray(favouritesList?.map((favRepo) => (
-                <FavouritesCard favRepo={favRepo}/>
+                <FavouritesCard favRepo={favRepo} handleOnClick={handleFavourites} />
               )
             ))}
           </Row>

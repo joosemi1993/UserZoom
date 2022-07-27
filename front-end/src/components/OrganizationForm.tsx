@@ -26,13 +26,13 @@ const OrganizationForm = ({ setOrganizationList }: Props) => {
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Row>
-        <Col>
-          <Form.Group className="mb-3" controlId="formOrganization">
+      <Row style={{ display: "flex", justifyContent: "space-between"}}>
+        <Col style={{flex: "8 0 0%"}}>
+          <Form.Group controlId="formOrganization">
             <Form.Control required type="text" placeholder="Enter organization name" onChange={handleOnChange}  />
           </Form.Group>
         </Col>
-        <Col>
+        <Col style={{ display: "flex", justifyContent: "end"}}>
           <Button variant="primary" type="submit">Search</Button>
         </Col>
       </Row>

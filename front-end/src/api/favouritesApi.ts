@@ -33,9 +33,13 @@ export const removeFromFavourites = async (
 export const isFavourite = async (
   author: string,
   repo: string
-): Promise<IsFavouriteOutput> => {
-  const response = await api.get<IsFavouriteOutput>(
-    `/user/is-favourite/${author}/${repo}`
-  );
-  return response.data;
+): Promise<IsFavouriteOutput | void> => {
+  try {
+    const response = await api.get<IsFavouriteOutput>(
+      `/user/is-favourite/${author}/${repo}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error");
+  }
 };

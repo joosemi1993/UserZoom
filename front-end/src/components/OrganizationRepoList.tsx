@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 import { isFavourite, addToFavourites, removeFromFavourites } from '../api/favouritesApi';
 import { RepositoryOutput } from '../interface/github';
 
@@ -14,7 +15,7 @@ const OrganizationRepoList = ({repository}: Props) => {
 
   const fetchIsFavourite = useCallback(async () => {
     const getIsFavourite = await isFavourite(owner.name, name);
-    setIsFavouriteRepo(getIsFavourite.isFavourite);
+    getIsFavourite?.isFavourite && setIsFavouriteRepo(getIsFavourite.isFavourite);
   }, [owner.name, name])
 
   useEffect(() => {
@@ -43,15 +44,10 @@ const OrganizationRepoList = ({repository}: Props) => {
         </Col>
         <Col style={{display:'flex', justifyContent:'right'}}>
           { isFavouriteRepo ? (
-            <Button variant="danger" size="sm" onClick={handleFavourites}>
-              Remove from Favourites
-            </Button>
+            <Button size='lg' variant="link" onClick={handleFavourites}><FaStar /></Button>
           ) : (
-            <Button variant="primary" size="sm" onClick={handleFavourites}>
-              Add to Favourites
-            </Button>
+            <Button size='lg' variant="link" onClick={handleFavourites}><FaRegStar /></Button>
           )}
-          
         </Col>
       </Row>
     </ListGroup.Item>
