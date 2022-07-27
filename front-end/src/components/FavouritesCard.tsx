@@ -3,10 +3,13 @@ import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FaRegStar, FaStar } from "react-icons/fa";
+import RepoModal from './RepoModal';
 
 
-function FavouritesCard({favRepo}: any) {
+const FavouritesCard = ({favRepo}: any) => {
   const [isFavourite, setIsFavourite] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
   const { 
     id,
     name,
@@ -23,9 +26,7 @@ function FavouritesCard({favRepo}: any) {
     setIsFavourite(!isFavourite)
   }
 
-   const showModal = () => {
-    console.log("cocuño")
-   }
+  const handleShowModal = () => setShowModal(true);
    
   return (
     <Col sm={6} md={4} lg={3} className="mb-5">
@@ -40,9 +41,10 @@ function FavouritesCard({favRepo}: any) {
             </Col>
           </Row>
           <Card.Text>{description}</Card.Text>
-          <Button onClick={showModal} variant="primary">Detailed Info</Button>
+          <Button onClick={handleShowModal} variant="primary">Detailed Info</Button>
         </Card.Body>
       </Card>
+      <RepoModal showModal={showModal} setShowModal={setShowModal} repo={favRepo}/>
     </Col>
   );
 }
