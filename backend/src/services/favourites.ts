@@ -1,35 +1,11 @@
-import { FavouritesOutput } from "../interface/favourites";
+import { RepositoryOutput } from "../interface/favourites";
 import { EmptyResponse } from "../interface/general";
 import repository from "../repository/github";
+import util from "../util";
 
-const getFavourites = async (): Promise<FavouritesOutput[]> => {
+const getFavourites = async (): Promise<RepositoryOutput[]> => {
   const favouritesList = await repository.getFavourites();
-  const favouritesFiltered: FavouritesOutput[] = favouritesList.map((repo) => {
-    const {
-      id,
-      name,
-      private: privateRepo,
-      html_url,
-      description,
-      created_at,
-      updated_at,
-    } = repo;
-    const { login, avatar_url } = repo.owner;
-    return {
-      id,
-      name,
-      private: privateRepo,
-      url: html_url,
-      description,
-      created_at,
-      updated_at,
-      owner: {
-        name: login,
-        avatar: avatar_url,
-      },
-    };
-  });
-  return favouritesFiltered;
+  return util.filterRepoList(favouritesList);
 };
 
 const isFavourite = async (
