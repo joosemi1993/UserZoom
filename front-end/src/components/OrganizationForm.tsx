@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { getOrganizationRepos } from "../api/organizationApi";
+import { RepositoryOutput } from "../interface/github";
 
 interface Props {
-  setOrganizationList: Dispatch<SetStateAction<any[]>>;
+  setOrganizationList: Dispatch<SetStateAction<RepositoryOutput[]>>;
 }
 
 const OrganizationForm = ({ setOrganizationList }: Props) => {

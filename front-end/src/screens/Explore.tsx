@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Container, ListGroup, Row } from 'react-bootstrap';
 import OrganizationForm from '../components/OrganizationForm';
 import OrganizationRepoList from '../components/OrganizationRepoList';
+import { RepositoryOutput } from '../interface/github';
 
 const Explore = () => {
-  const [organizationList, setOrganizationList] = useState<any[]>([]);
+  const [organizationList, setOrganizationList] = useState<RepositoryOutput[]>([]);
   
   return (
     <div className="explore">

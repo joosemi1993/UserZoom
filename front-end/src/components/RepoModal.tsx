@@ -2,9 +2,10 @@ import moment from 'moment';
 import { Dispatch, SetStateAction } from 'react';
 import { Col, Modal, Row, Image } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { RepositoryOutput } from '../interface/github';
 
 interface Props {
-  repo: any;
+  repo: RepositoryOutput;
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
