@@ -1,38 +1,35 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { FaRegStar, FaStar } from "react-icons/fa";
-import favouritesApi from '../api/favouritesApi';
-import RepoModal from './RepoModal';
+import { isFavourite, addToFavourites, removeFromFavourites } from '../api/favouritesApi';
 
 interface Props {
   repository: any;
 }
 
 const OrganizationRepoList = ({repository}: Props) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [isFavouriteRepo, setIsFavouriteRepo] = useState(false);
   const { name, description, owner } = repository;
 
   const fetchIsFavourite = useCallback(async () => {
-    const getIsFavurite = await favouritesApi.isFavourite(owner.name, name);
-    setIsFavourite(getIsFavurite);
-  }, [])
+    const getIsFavurite = await isFavourite(owner.name, name);
+    setIsFavouriteRepo(getIsFavurite);
+  }, [owner.name, name])
 
   useEffect(() => {
     if (Object.keys(repository).length) {
       fetchIsFavourite()
       .catch(console.error);
     }
-  }, [fetchIsFavourite, setIsFavourite])
+  }, [fetchIsFavourite, setIsFavouriteRepo, repository])
 
   const handleFavourites = async () => {
-    if (isFavourite) {
-      await favouritesApi.removeFromFavourites(owner.name, name);
-      setIsFavourite(false);
+    if (isFavouriteRepo) {
+      await removeFromFavourites(owner.name, name);
+      setIsFavouriteRepo(false);
     } else {
-      await favouritesApi.addToFavourites(owner.name, name);
-      setIsFavourite(true);
+      await addToFavourites(owner.name, name);
+      setIsFavouriteRepo(true);
     }
   }
 
@@ -44,7 +41,7 @@ const OrganizationRepoList = ({repository}: Props) => {
           <p>{description}</p>
         </Col>
         <Col style={{display:'flex', justifyContent:'right'}}>
-          { isFavourite ? (
+          { isFavouriteRepo ? (
             <Button variant="danger" size="sm" onClick={handleFavourites}>
               Remove from Favourites
             </Button>

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import organizationApi from "../api/organizationApi";
+import { getOrganizationRepos } from "../api/organizationApi";
 
 interface Props {
   setOrganizationList: Dispatch<SetStateAction<any[]>>;
@@ -17,7 +17,7 @@ const OrganizationForm = ({ setOrganizationList }: Props) => {
     if (organizationFormName === "") {
       event.stopPropagation();
     } else {
-      const data = await organizationApi.getOrganizationRepos(organizationFormName);
+      const data = await getOrganizationRepos(organizationFormName);
       setOrganizationList(data);
     }
     setValidated(true);

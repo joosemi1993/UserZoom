@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, ListGroup, Row } from 'react-bootstrap';
-import FavouritesCard from '../components/FavouritesCard';
 import OrganizationForm from '../components/OrganizationForm';
 import OrganizationRepoList from '../components/OrganizationRepoList';
 
 const Explore = () => {
   const [organizationList, setOrganizationList] = useState<any[]>([]);
-  console.log(organizationList);
   
   return (
     <div className="explore">
@@ -19,12 +17,11 @@ const Explore = () => {
         </Row>
         <Row>
           <ListGroup>
-          { organizationList.length > 0 ? organizationList?.map((repo) => {
-            console.log("EL REPO", repo);
-            return (
+          { organizationList.length > 0
+            ? React.Children.toArray(organizationList?.map((repo) => (
               <OrganizationRepoList repository={repo} />
-            )
-          }) : <></>}
+            )))
+            : <></>}
           </ListGroup>
         </Row>
       </Container>

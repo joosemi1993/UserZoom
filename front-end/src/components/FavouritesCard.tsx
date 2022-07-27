@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FaRegStar, FaStar } from "react-icons/fa";
-import favouritesApi from '../api/favouritesApi';
+import { removeFromFavourites } from '../api/favouritesApi';
 import RepoModal from './RepoModal';
 
 
@@ -18,8 +18,8 @@ const FavouritesCard = ({favRepo}: any) => {
    } = favRepo;
 
   const fetchRemoveFavourite = useCallback(async () => {
-    await favouritesApi.removeFromFavourites(owner.name, name);
-  }, [])
+    await removeFromFavourites(owner.name, name);
+  }, [owner.name, name])
 
   const handleFavourites = () => { 
     fetchRemoveFavourite();

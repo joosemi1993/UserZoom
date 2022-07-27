@@ -25,7 +25,7 @@ const RepoModal = ({repo, showModal, setShowModal}: Props) => {
   const navigateToRepo = () => window.open(url, '_blank')
    
   return (
-    <Modal show={showModal} onHide={handleClose}>
+    <Modal centered show={showModal} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>{name}</Modal.Title>
       </Modal.Header>
@@ -33,9 +33,11 @@ const RepoModal = ({repo, showModal, setShowModal}: Props) => {
         <Row>
           <Col>
             <Row>
-              <Col>
-                <Image src={owner.avatar} rounded thumbnail/>
-              </Col>
+              { owner.avatar &&
+                <Col>
+                  <Image src={owner.avatar} rounded thumbnail/>
+                </Col>
+              }
               <Col>
                 <h6>Author</h6>
                 <p>{owner.name}</p>

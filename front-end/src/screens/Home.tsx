@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import favouritesApi from '../api/favouritesApi';
+import { getFavourites } from '../api/favouritesApi';
 import FavouritesCard from '../components/FavouritesCard';
 
 const Home = () => {
   const [favouritesList, setFavouritesList] = useState([]);
 
   const fetchFavouritesList = useCallback(async () => {
-    const data = await favouritesApi.getFavourites();
+    const data = await getFavourites();
     setFavouritesList(data);
   }, [])
 
@@ -22,10 +22,10 @@ const Home = () => {
         <Container className='favourites-list'>
           <h2>Favourites List</h2>
           <Row className='mt-3'>
-            { favouritesList?.map((favRepo) => (
+            { React.Children.toArray(favouritesList?.map((favRepo) => (
                 <FavouritesCard favRepo={favRepo}/>
               )
-            )}
+            ))}
           </Row>
         </Container>
       </Container>
