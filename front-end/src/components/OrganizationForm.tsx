@@ -1,11 +1,14 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import getFavourites from "../api/favouritesApi";
+import organizationApi from "../api/organizationApi";
 
-const OrganizationForm = () => {
+interface Props {
+  setOrganizationList: Dispatch<SetStateAction<any[]>>;
+}
+
+const OrganizationForm = ({ setOrganizationList }: Props) => {
   const [validated, setValidated] = useState(false);
   const [organizationFormName, setOrganizationFormName] = useState("");
-  const [losDatos, setLosDatos] = useState([])
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => setOrganizationFormName(e.target.value);
 
@@ -14,12 +17,11 @@ const OrganizationForm = () => {
     if (organizationFormName === "") {
       event.stopPropagation();
     } else {
-           
+      const data = await organizationApi.getOrganizationRepos(organizationFormName);
+      setOrganizationList(data);
     }
     setValidated(true);
   }
-
-  console.log(losDatos)
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
