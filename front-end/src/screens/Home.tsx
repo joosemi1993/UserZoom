@@ -1,14 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import getFavourites from '../api/favouritesApi';
+import favouritesApi from '../api/favouritesApi';
 import FavouritesCard from '../components/FavouritesCard';
-import Header from '../components/Header';
 
 const Home = () => {
   const [favouritesList, setFavouritesList] = useState([]);
 
   const fetchFavouritesList = useCallback(async () => {
-    const data = await getFavourites();
+    const data = await favouritesApi.getFavourites();
     setFavouritesList(data);
   }, [])
 

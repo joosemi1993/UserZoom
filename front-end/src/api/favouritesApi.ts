@@ -5,4 +5,9 @@ const getFavourites = async () => {
   return response.data;
 };
 
-export default getFavourites;
+const removeFromFavourites = async (author: string, repo: string) => {
+  const response = await api.delete(`/user/favourites/${author}/${repo}`);
+  return response.data;
+};
+
+export default { getFavourites, removeFromFavourites };

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FaRegStar, FaStar } from "react-icons/fa";
+import favouritesApi from '../api/favouritesApi';
 import RepoModal from './RepoModal';
 
 
@@ -11,19 +12,18 @@ const FavouritesCard = ({favRepo}: any) => {
   const [showModal, setShowModal] = useState(false);
 
   const { 
-    id,
     name,
-    private: isPrivate,
-    url,
     description,
-    created_at,
-    updated_at,
     owner,
    } = favRepo;
 
-  const handleFavourites = (id: number) => { 
-    // Call to remove from favourites
-    setIsFavourite(!isFavourite)
+  const fetchRemoveFavourite = useCallback(async () => {
+    await favouritesApi.removeFromFavourites(owner.name, name);
+  }, [])
+
+  const handleFavourites = () => { 
+    fetchRemoveFavourite();
+    setIsFavourite(false);
   }
 
   const handleShowModal = () => setShowModal(true);
@@ -37,7 +37,7 @@ const FavouritesCard = ({favRepo}: any) => {
               <Card.Title>{name}</Card.Title>
             </Col>
             <Col style={{display:'flex', justifyContent:'right'}}>
-              { isFavourite ? <FaStar onClick={() => handleFavourites(id)} /> : <FaRegStar onClick={() => handleFavourites(id)} /> }
+              { isFavourite ? <FaStar onClick={() => handleFavourites()} /> : <FaRegStar onClick={() => handleFavourites()} /> }
             </Col>
           </Row>
           <Card.Text>{description}</Card.Text>
